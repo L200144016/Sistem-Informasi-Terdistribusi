@@ -1,0 +1,52 @@
+CREATE TABLE students (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	nim VARCHAR(10) NOT NULL,
+	age INT(3) NOT NULL,
+	year INT(4) NOT NULL,
+	name VARCHAR(160) NOT NULL,
+	class CHAR NOT NULL,
+	address VARCHAR(160) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE subjects (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	code VARCHAR(10) NOT NULL,
+	title VARCHAR(160) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE krs (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	subject_id INT(11) NOT NULL,
+	student_id INT(11) NOT NULL,
+	semester INT NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(student_id) REFERENCES students(id),
+	FOREIGN KEY(subject_id) REFERENCES subjects(id)
+);
+
+
+INSERT INTO students (nim, age, name, class, address) VALUES
+('l200144021', 21, 2012, 'Moch Rizky Prasetya Kurniadi', 'X', 'Ngawi'),
+('l200144022', 20, 2013, 'Muhammad Satrio Sujarwo', 'X', 'Sragen'),
+('l200144023', 20, 2014, 'Didik Maryono', 'X', 'Sukoharjo'),
+('l200144024', 20, 2015, 'Rasyid Burhanuddin', 'X', 'Kalimantan'),
+('l200144025', 20, 2016, 'Makarima Fahreza Fathony', 'X', 'Semarang'),
+('l200144026', 20, 2017, 'Rofi Abdillah', 'X', 'Cilacap');
+
+INSERT INTO subjects (code, title) VALUES
+('TIF20833', 'Visual Programming'),
+('TIF60233', 'Metodologi Penelitian dan Publikasi Ilmiah'),
+('TIF60333', 'Audit dan Tata Kelola Teknologi Informasi'),
+('TIF60433', 'Perancangan Sistem Enterprise'),
+('TIF60533', 'Perancangan Sistem Informasi'),
+('TIF61733', 'Pemrograman Perangkat Mobile'),
+('UMS80112', 'Pendidikan Kewarganegaraan'),
+('TIF80843', 'Sistem Informasi Terdistribusi');
+
+KRS
+SELECT * FROM krs JOIN students, subjects WHERE krs.student_id = students.id AND krs.subject_id = subjects.id AND students.nim = "l200144021";
+
+ATTENDED LIST
+SELECT * FROM krs JOIN students, subjects WHERE krs.student_id = students.id AND krs.subject_id = subjects.id AND subjects.code = "TIF60233";
