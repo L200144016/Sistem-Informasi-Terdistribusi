@@ -1,0 +1,45 @@
+create table students(
+	id int(10) auto_increment,
+	nim varchar(10) not null,
+	name varchar(50) not null,
+	address varchar(50) not null
+);
+
+create table subjects(
+	id int(10) auto_increment,
+	code varchar(10) not null,
+	title varchar(50) not null,
+	primary key(id)
+);
+
+create table krs(
+	id int(10) auto_increment,
+	subject_id int(10) not null,
+	student_id int(10) not null,
+	semester int not null,
+	primary key(id),
+	foreign key(subject_id) references subjects(id),
+	foreign key(student_id) references students(id)	
+);
+
+insert into students (nim, name, address) values
+	('l200144016', 'Rofi Abdillah', 'Cilacap'),
+	('l200144011', 'Makarima Fahreza Fathony', 'Salatiga');
+
+insert into subjects (code, title) values
+	('TIF3003','Perancangan Sistem Enterprise'),
+	('TIF3004','Perancangan Sistem Informasi'),
+	('TIF3005','Pemrograman Perangkat Mobile'),
+	('TIF3006','Sistem Informasi Terdistribusi');
+
+insert into krs (subject_id, student_id, semester) values
+	(1, 1, 6),
+	(2, 1, 6),
+	(3, 2, 6),
+	(4, 2, 6);
+
+KRS
+SELECT * FROM krs JOIN students, subjects WHERE krs.student_id = students.id AND krs.subject_id = subjects.id AND students.nim = "l200144016";
+
+ATTENDED LIST
+SELECT * FROM krs JOIN students, subjects WHERE krs.student_id = students.id AND krs.subject_id = subjects.id AND subjects.code = "TIF3003";
